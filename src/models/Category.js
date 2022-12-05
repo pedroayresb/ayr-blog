@@ -1,7 +1,7 @@
 const { sequelize } = require(".");
 
-const CategoriesModel = (sequelize, DataTypes) => {
-  const Categories = sequelize.define("Categories", {
+const Categories = (sequelize, DataTypes) => {
+  const model = sequelize.define("Categories", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -13,15 +13,15 @@ const CategoriesModel = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  Categories.associate = (models) => {
-    Categories.belongsToMany(models.BlogPost, {
+  model.associate = (models) => {
+    model.belongsToMany(models.BlogPost, {
       through: "BlogPostCategories",
       as: "BlogPost",
       foreignKey: "categoryId",
     });
   };
   
-  return Categories;
+  return model;
 }
 
-module.exports = CategoriesModel;
+module.exports = Categories;

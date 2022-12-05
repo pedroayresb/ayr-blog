@@ -1,7 +1,7 @@
 const { sequelize } = require(".");
 
-const PostCategoryModel = (sequelize, DataTypes) => {
-  const PostCategory = sequelize.define("PostCategory", {
+const PostCategory = (sequelize, DataTypes) => {
+  const model = sequelize.define("PostCategory", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -14,19 +14,19 @@ const PostCategoryModel = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  PostCategory.associate = (models) => {
-    PostCategory.belongsTo(models.BlogPost, {
+  model.associate = (models) => {
+    model.belongsTo(models.BlogPost, {
       foreignKey: "postId",
       as: "post",
     });
 
-    PostCategory.belongsTo(models.Category, {
+    model.belongsTo(models.Category, {
       foreignKey: "categoryId",
       as: "category",
     });
   };
 
-  return PostCategory;
+  return model;
 }
 
-module.exports = PostCategoryModel;
+module.exports = PostCategory;

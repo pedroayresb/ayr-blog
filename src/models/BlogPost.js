@@ -1,7 +1,7 @@
 const { sequelize } = require(".");
 
-const BlogPostsModel = (sequelize, DataTypes) => {
-  const BlogPosts = sequelize.define("BlogPosts", {
+const BlogPosts = (sequelize, DataTypes) => {
+  const model = sequelize.define("BlogPosts", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -17,20 +17,20 @@ const BlogPostsModel = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  BlogPosts.associate = (models) => {
-    BlogPosts.belongsTo(models.Users, {
+  model.associate = (models) => {
+    model.belongsTo(models.Users, {
       foreignKey: "userId",
       as: "user",
     });
 
-    BlogPosts.belongsToMany(models.Categories, {
+    model.belongsToMany(models.Categories, {
       through: "BlogPostCategories",
       as: "categories",
       foreignKey: "blogPostId",
     });
   };
 
-  return BlogPosts;
+  return model;
 }
 
-module.exports = BlogPostsModel;
+module.exports = BlogPosts;
