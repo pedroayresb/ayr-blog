@@ -1,6 +1,4 @@
-const { sequelize } = require(".");
-
-const BlogPosts = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const model = sequelize.define("BlogPosts", {
     id: {
       type: DataTypes.INTEGER,
@@ -31,6 +29,4 @@ const BlogPosts = (sequelize, DataTypes) => {
   };
 
   return model;
-}
-
-module.exports = BlogPosts;
+};

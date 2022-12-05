@@ -1,6 +1,4 @@
-const { sequelize } = require(".");
-
-const PostCategory = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const model = sequelize.define("PostCategory", {
     id: {
       type: DataTypes.INTEGER,
@@ -27,6 +25,4 @@ const PostCategory = (sequelize, DataTypes) => {
   };
 
   return model;
-}
-
-module.exports = PostCategory;
+};
