@@ -30,7 +30,7 @@ const create = async (req, res) => {
   const user = await userServices.create(displayName, email, password, image);
 
   if (!user) {
-    return res.status(409).json({ message: 'Email already registered' });
+    return res.status(409).json({ message: 'User already registered' });
   }
   
   const jwtConfig = {

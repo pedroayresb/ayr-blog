@@ -12,11 +12,15 @@ const app = express();
 
 app.use(express.json());
 
+const validateToken = require('./middlewares/validateToken');
+
 app.post('/login', loginValidate, userController.login);
 
+app.use(validateToken);
+
 app.use('/user', userRouter);
-app.use('/categories', categoryRouter);
-app.use('/post', postRouter);
+// app.use('/categories', categoryRouter);
+// app.use('/post', postRouter);
 
 // ...
 

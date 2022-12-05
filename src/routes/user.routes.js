@@ -1,16 +1,11 @@
-const express = require('express');
-
 const router = require('express').Router();
-
-const app = express();
-app.use(express.json());
 const userController = require('../controllers/user.controller');
 
-const validateToken = require('../middlewares/validateToken');
-
-app.use(validateToken);
+const { validateDisplayName, 
+  validateEmail, 
+  validatePassword } = require('../middlewares/validateUser');
 
 router
-  .post('/user', userController.create)
+  .post('/user', validateDisplayName, validateEmail, validatePassword, userController.create)
   .get('/user', userController.getAll)
   .get('/user/:id', userController.getById);
