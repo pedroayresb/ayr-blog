@@ -16,9 +16,7 @@ const validateToken = require('./middlewares/validateToken');
 
 app.post('/login', loginValidate, userController.login);
 
-app.use(validateToken);
-
-app.use('/user', userRouter);
+app.use('/user', validateToken, userRouter);
 // app.use('/categories', categoryRouter);
 // app.use('/post', postRouter);
 
