@@ -15,3 +15,5 @@ router
   validatePassword, userController.create)
   .get('/user', validateToken, userController.getAll)
   .get('/user/:id', validateToken, userController.getById);
+
+module.exports = router;
