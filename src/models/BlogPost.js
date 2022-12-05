@@ -5,9 +5,19 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    title: DataTypes.STRING,
-    content: DataTypes.STRING,
-    userId: DataTypes.INTEGER,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    content: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+    },
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
   }, {
@@ -16,15 +26,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   model.associate = (models) => {
-    model.belongsTo(models.Users, {
+    model.belongsTo(models.User, {
       foreignKey: "userId",
       as: "user",
-    });
-
-    model.belongsToMany(models.Categories, {
-      through: "BlogPostCategories",
-      as: "categories",
-      foreignKey: "blogPostId",
     });
   };
 
