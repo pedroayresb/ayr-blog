@@ -1,7 +1,7 @@
 const express = require('express');
 const userRouter = require('./routes/user.routes');
-const categoryRouter = require('./routes/categories.routes');
-const postRouter = require('./routes/post.routes');
+// const categoryRouter = require('./routes/categories.routes');
+// const postRouter = require('./routes/post.routes');
 
 const userController = require('./controllers/user.controller');
 

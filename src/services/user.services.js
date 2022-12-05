@@ -20,7 +20,20 @@ const create = async (displayName, email, password, image) => {
   const user = await userModel.create({ displayName, email, password, image });
   return user;
 };
+
+const getAll = async () => {
+  const users = await userModel.findAll();
+  return users;
+};
+
+const getById = async (id) => {
+  const user = await userModel.findOne({ where: { id } });
+  return user;
+};
+
 module.exports = {
   login,
   create,
+  getAll,
+  getById,
 };
