@@ -9,7 +9,7 @@ const login = async (req, res) => {
   const user = await userServices.login(email, password);
 
   if (!user) {
-    return res.status(401).json({ message: 'Invalid fields' });
+    return res.status(400).json({ message: 'Invalid fields' });
   }
 
   const jwtConfig = {
