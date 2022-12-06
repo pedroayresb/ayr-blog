@@ -23,12 +23,19 @@ const create = async (displayName, email, password, image) => {
 
 const getAll = async () => {
   const users = await User.findAll();
-  return users;
+  const usersWithoutPassword = users.map((user) => ({ ...user.dataValues, password: undefined }));
+  return usersWithoutPassword;
 };
 
 const getById = async (id) => {
   const user = await User.findOne({ where: { id } });
-  return user;
+  if (!user) {
+    return null;
+  }
+
+  const userWithoutPassword = { ...user.dataValues, password: undefined };
+  
+  return userWithoutPassword;
 };
 
 module.exports = {
