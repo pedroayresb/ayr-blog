@@ -15,6 +15,13 @@ router
   validateContent,
   validateCategoryId, postController.create)
   .get('/', validateToken, postController.getAll)
-  .get('/:id', validateToken, postController.getById);
+  .get('/search', validateToken, postController.search)
+  .get('/:id', validateToken, postController.getById)
+  .put('/:id',
+  validateToken,
+  validateTitle,
+  validateContent,
+  postController.update)
+  .delete('/:id', validateToken, postController.exclude);
 
 module.exports = router;

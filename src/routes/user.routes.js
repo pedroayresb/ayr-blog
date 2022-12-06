@@ -13,6 +13,7 @@ router
   validateEmail,
   validatePassword, userController.create)
   .get('/', validateToken, userController.getAll)
-  .get('/:id', validateToken, userController.getById);
+  .get('/:id', validateToken, userController.getById)
+  .delete('/me', validateToken, userController.exclude);
 
 module.exports = router;

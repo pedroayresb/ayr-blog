@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, PostCategory, Category, User } = require('../models');
 
 const createPostCategory = async (postId, categoryId) => {
@@ -42,8 +43,52 @@ const getById = async (id) => {
   return post;
 };
 
+const update = async (id, title, content, userId) => {
+  if (Number(id) !== Number(userId)) return 'access denied';
+
+  await BlogPost.update({ 
+    title,
+    content,
+    updated: new Date() }, 
+    { where: { id },
+  });
+  const [updatedPost] = await getById(userId);
+  return updatedPost;
+};
+
+const exclude = async (id, userId) => {
+  const [post] = await getById(id);
+  if (!post) return null;
+  if (Number(post.dataValues.userId) !== Number(userId)) return 'access denied';
+
+  await BlogPost.destroy({ where: { id } });
+  return post;
+};
+
+const search = async (q) => {
+  if (!q) {
+    return getAll();
+  }
+
+  const posts = await BlogPost.findAll(
+    { where: { [Op.or]: [
+      { title: { [Op.like]: `%${q}%` } },
+      { content: { [Op.like]: `%${q}%` } },
+    ] },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ] },
+  );
+
+  return posts;
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
+  exclude,
+  search,
 };

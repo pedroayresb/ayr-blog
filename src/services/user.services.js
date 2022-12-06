@@ -38,9 +38,20 @@ const getById = async (id) => {
   return userWithoutPassword;
 };
 
+const exclude = async (id) => {
+  const user = await User.findOne({ where: { id } });
+  if (!user) {
+    return null;
+  }
+
+  await User.destroy({ where: { id } });
+  return user;
+};
+
 module.exports = {
   login,
   create,
   getAll,
+  exclude,
   getById,
 };
