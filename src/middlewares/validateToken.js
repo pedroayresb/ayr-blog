@@ -5,8 +5,6 @@ const secret = process.env.JWT_SECRET || 'secret token';
 const validateToken = (req, res, next) => {
   const token = req.header('Authorization');
 
-  console.log(req.header('Authorization'));
-
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
   }
@@ -14,7 +12,7 @@ const validateToken = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, secret);
 
-    req.user = decoded;
+    req.user = decoded.data;
 
     next();
   } catch (err) {
