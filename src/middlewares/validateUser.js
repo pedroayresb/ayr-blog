@@ -12,9 +12,11 @@ const validateDisplayName = (req, res, next) => {
 const validateEmail = (req, res, next) => {
   const { email } = req.body;
 
-  if (!email || !email.includes('@')) {
+  const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+
+  if (!email || !emailRegex.test(email)) {
     return res
-    .status(400).json({ message: 'Invalid entries. Try again.' });
+    .status(400).json({ message: '"email" must be a valid email' });
   }
 
   next();
@@ -25,7 +27,7 @@ const validatePassword = (req, res, next) => {
 
   if (!password || password.length < 6) {
     return res
-    .status(400).json({ message: '"password" length must be 6 characters long' });
+    .status(400).json({ message: '"password" length must be at least 6 characters long' });
   }
 
   next();

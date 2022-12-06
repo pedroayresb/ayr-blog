@@ -8,12 +8,11 @@ const { validateDisplayName,
   validatePassword } = require('../middlewares/validateUser');
 
 router
-  .post('/user',
-  validateToken,
+  .post('/',
   validateDisplayName,
   validateEmail,
   validatePassword, userController.create)
-  .get('/user', validateToken, userController.getAll)
-  .get('/user/:id', validateToken, userController.getById);
+  .get('/', validateToken, userController.getAll)
+  .get('/:id', validateToken, userController.getById);
 
 module.exports = router;
