@@ -32,7 +32,7 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const post = await BlogPost.findOne(
+  const post = await BlogPost.findAll(
     { where: { id } },
     { include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
