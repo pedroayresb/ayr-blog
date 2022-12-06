@@ -33,12 +33,12 @@ const getAll = async () => {
 
 const getById = async (id) => {
   const post = await BlogPost.findAll(
-    { where: { id } },
-    { include: [
+    { where: { id },
+    include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
     ] },
-    );
+  );
   return post;
 };
 
